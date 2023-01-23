@@ -44,7 +44,7 @@ app.get('/stream', function (req, res) {
 
     tcpServer.listen(function () {
         console.log("Connection started.");
-        if (gstMuxer == undefined) {
+        if (true) {
             console.log("inside gstMuxer == undefined");
             const cmd = 'gst-launch-1.0';
             const args = getGstPipelineArguments(this);
@@ -84,5 +84,15 @@ function getGstPipelineArguments(tcpServer) {
             '!', 'mp4mux', 'fragment-duration=10',
             '!', 'tcpclientsink', 'host=localhost',
             'port=' + tcpServer.address().port];
+    // gst-launch-1.0 filesrc location=hfs_fancy_nosound.mp4 ! qtdemux name=d d.video_0 ! queue ! h264parse ! vpudec !  queue ! waylandsink
+
+
+    // const args = 
+    // ['filesrc.mp4', 'location=hfs_fancy_nosound.mp4',
+    //     '!', 'qtdemux', 'name=d d.video_0',
+    //     '!', 'queue',
+    //     '!', 'h264parse', 'vpudec', 'queue',
+    //     '!', 'tcpclientsink', 'host=localhost',
+    //     'port=' + tcpServer.address().port];
     return args;
 }
